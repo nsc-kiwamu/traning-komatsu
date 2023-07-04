@@ -1,5 +1,7 @@
 package change;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import util.NumericUtil;
@@ -90,8 +92,44 @@ public class Problem01 {
         System.out.println("");
     }
 
-    public static void outputAnyNumber(List<Integer> dataList) {};
+    public static void outputAnyNumber(List<Integer> dataList) {
 
-    public static void outputSortOddNumber(List<Integer> dataList) {};
+        System.out.println("3の倍数一覧");
+
+        //3で割り切れたら3の倍数
+         dataList.stream()
+         .filter(s -> s % 3 == 0 )
+         .map(s -> "[" + s + "]" )
+         .forEach(System.out::print);
+
+         System.out.println("");
+
+    }
+
+    public static void outputSortOddNumber(List<Integer> dataList) {
+
+        System.out.println("奇数の一覧を昇順に");
+
+        // 2で割り切れなかったら奇数
+        List<Integer> oddList = new ArrayList<>();
+        for (Integer data : dataList) {
+            if (data % 2 != 0) {
+                oddList.add(data);
+
+            }
+        }
+
+        //昇順にソート
+        Collections.sort(oddList);
+
+        //ソートされた奇数の一覧表示
+        for(Integer oddNumber : oddList) {
+            System.out.println("[" + oddNumber +"]");
+        }
+
+        System.out.println("");
+
+
+    }
 
 }
