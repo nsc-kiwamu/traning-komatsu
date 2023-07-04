@@ -24,9 +24,14 @@ public class Problem03 {
         // ユーザAとBでカードを取得
         List<Integer> cardListA = NumericUtil.makeRandomList(10, 15);
         List<Integer> cardListB = NumericUtil.makeRandomList(10, 15);
+        List<Integer> cardListC = NumericUtil.makeRandomList(100, 15);
+        List<Integer> cardListD = NumericUtil.makeRandomList(100, 15);
+
 
         // ユーザAとBで勝負する
         gameComplete(cardListA, cardListB);
+        game3Win(cardListC, cardListD);
+        game3StraightWin(cardListC, cardListD);
 
         /* -- ここから問題 -- */
         /* 比較するカード数を100枚に増やし、先に3勝した方を勝ちと判断するメソッド(game3Win)
@@ -89,7 +94,41 @@ public class Problem03 {
 
     }
 
-    private static void game3Win(List<Integer> targetAList, List<Integer> targetBList) {}
+   /* List<Integer> cardListA = NumericUtil.makeRandomList(100, 15);
+    List<Integer> cardListB = NumericUtil.makeRandomList(100, 15);*/
+
+
+
+    private static void game3Win(List<Integer> targetAList, List<Integer> targetBList) {
+
+    	 System.out.println("--------- お互いのカードを大小比較しました。 ---------");
+
+         System.out.println("ユーザAのリスト");
+         targetAList.stream().map(s -> "[" + s + "]").forEach(System.out::print);
+         System.out.println("");
+
+         System.out.println("ユーザBのリスト");
+         targetBList.stream().map(s -> "[" + s + "]").forEach(System.out::print);
+         System.out.println("");
+
+      // 要素数に差がある場合、少ない方に合わせて比較をする。
+         int gameCount = targetAList.size() > targetBList.size() ? targetBList.size() : targetAList.size();
+
+         int winCountA = 0;
+         int winCountB = 0;
+
+         for (int i = 0; i < gameCount; i++) {
+             // 大小比較
+             if (targetAList.get(i) < targetBList.get(i)) {
+                 winCountB++;
+                 if(winCountB <= 3) {
+
+
+    }
+
+
+
+
 
     private static void game3StraightWin(List<Integer> targetAList, List<Integer> targetBList) {}
 
