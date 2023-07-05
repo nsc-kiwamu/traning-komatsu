@@ -67,5 +67,36 @@ public class Problem04 {
 
     private static void aggregateNumber(List<Country> countryList) {
         // ※ 判定にif文ではなく、switch文を使用すること
+
+
+    	int usaPopulation = 0;
+    	int japanPopulation = 0;
+    	int chinaPopulation = 0;
+
+
+    	for (Country country : countryList) {
+
+    	switch (country) {
+
+            case USA:
+    	    usaPopulation++;
+    	    break;
+
+
+
+    	default:
+    		//未定義の国にはなにもしない
+    		break;
+
+    	}
+
+    	System.out.println("usa: " + usaPopulation);
+
+
+    	}
+
+
+
+
     }
 }
