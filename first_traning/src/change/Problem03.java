@@ -125,24 +125,26 @@ public class Problem03 {
          int winCountB = 0;
          int[] winRecordA = new int[3];
          int[] winRecordB = new int[3];
+         int lastWinA = 0;
+         int lastWinB = 0;
 
          for (int i = 0; i < gameCount; i++) {
              // 大小比較
              if (targetAList.get(i) < targetBList.get(i)) {
                  winCountB++;
-                 if (winCountB <= 3) {
-                 	winRecordB[winCountB - 1] = i + 1;
+                 lastWinB = i + 1;
+                 if (winCountB >= 3) {
+                 	break;
                  }
              }
              else if (targetBList.get(i) < targetAList.get(i)) {
             	 winCountA++;
-            	 if (winCountA <= 3) {
-                 	winRecordA[winCountA - 1] = i + 1;
+            	 lastWinA = i + 1;
+            	 if (winCountA >= 3) {
+                 	break;
                  }
              }
-             if (winCountA >= 3 || winCountB >= 3) {
-            	 break;
-             }
+
          }
          System.out.println();
 
@@ -150,19 +152,23 @@ public class Problem03 {
              System.out.println("引き分け");
          } else if (winCountA > winCountB) {
              System.out.println("Aの勝ち");
-             System.out.println("Aの3勝の内訳");
              for (int i = 0; i < 3; i++) {
             	 if (winRecordA[i] != 0) {
             		 System.out.println((i + 1) + "戦目で勝ち");
             	 }
              }
+             if(lastWinA != -1) {
+            	 System.out.println("何戦目で勝ったか：" + lastWinA + "戦目");
+             }
     }else {
     	System.out.println("Bの勝ち");
-        System.out.println("Bの3勝の内訳");
         for (int i = 0; i < 3; i++) {
        	 if (winRecordB[i] != 0) {
        		 System.out.println((i + 1) + "戦目で勝ち");
        	   }
+        }
+        if(lastWinB != -1) {
+       	 System.out.println("何戦目で勝ったか：" + lastWinB + "戦目");
         }
      }
   }
