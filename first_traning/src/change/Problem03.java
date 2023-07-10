@@ -108,7 +108,7 @@ public class Problem03 {
 
     private static void game3Win(List<Integer> targetAList, List<Integer> targetBList) {
 
-    	 System.out.println("--------- お互いのカードを大小比較しました。 ---------");
+         System.out.println("--------- お互いのカードを大小比較しました。 ---------");
 
          System.out.println("ユーザAのリスト");
          targetAList.stream().map(s -> "[" + s + "]").forEach(System.out::print);
@@ -134,14 +134,14 @@ public class Problem03 {
                  winCountB++;
                  lastWinB = i + 1;
                  if (winCountB >= 3) {
-                 	break;
+                     break;
                  }
              }
              else if (targetBList.get(i) < targetAList.get(i)) {
-            	 winCountA++;
-            	 lastWinA = i + 1;
-            	 if (winCountA >= 3) {
-                 	break;
+                 winCountA++;
+                 lastWinA = i + 1;
+                 if (winCountA >= 3) {
+                     break;
                  }
              }
 
@@ -153,22 +153,22 @@ public class Problem03 {
          } else if (winCountA > winCountB) {
              System.out.println("Aの勝ち");
              for (int i = 0; i < 3; i++) {
-            	 if (winRecordA[i] != 0) {
-            		 System.out.println((i + 1) + "戦目で勝ち");
-            	 }
+                 if (winRecordA[i] != 0) {
+                     System.out.println((i + 1) + "戦目で勝ち");
+                 }
              }
              if(lastWinA != -1) {
-            	 System.out.println("何戦目で勝ったか：" + lastWinA + "戦目");
+                 System.out.println("何戦目で勝ったか：" + lastWinA + "戦目");
              }
     }else {
-    	System.out.println("Bの勝ち");
+        System.out.println("Bの勝ち");
         for (int i = 0; i < 3; i++) {
-       	 if (winRecordB[i] != 0) {
-       		 System.out.println((i + 1) + "戦目で勝ち");
-       	   }
+            if (winRecordB[i] != 0) {
+                System.out.println((i + 1) + "戦目で勝ち");
+              }
         }
         if(lastWinB != -1) {
-       	 System.out.println("何戦目で勝ったか：" + lastWinB + "戦目");
+            System.out.println("何戦目で勝ったか：" + lastWinB + "戦目");
         }
      }
   }
@@ -179,7 +179,7 @@ public class Problem03 {
 
     private static void game3StraightWin(List<Integer> targetAList, List<Integer> targetBList) {
 
-    	System.out.println("--------- お互いのカードを大小比較しました。 ---------");
+        System.out.println("--------- お互いのカードを大小比較しました。 ---------");
 
         System.out.println("ユーザAのリスト");
         targetAList.stream().map(s -> "[" + s + "]").forEach(System.out::print);
@@ -205,18 +205,22 @@ public class Problem03 {
                 winStraightA = 0;
                 winStraightB++;
                 if (winStraightB == 3) {
-                	winRound = i + 1;
-                	break;
+                    winRound = i + 1;
+                    break;
                 }
             }
             else if (targetBList.get(i) < targetAList.get(i)) {
-           	 winCountA++;
-           	 winStraightB = 0;
-           	 winStraightA++;
-           	 if (winStraightA == 3) {
-                	winRound = i + 1;
-                	break;
+                winCountA++;
+                winStraightB = 0;
+                winStraightA++;
+                if (winStraightA == 3) {
+                    winRound = i + 1;
+                    break;
                 }
+            }
+            else {
+                winStraightA = 0;
+                winStraightB = 0;   //あいこで連勝リセット
             }
 
         }
@@ -224,18 +228,21 @@ public class Problem03 {
 
         if (winCountA == winCountB) {
             System.out.println("引き分け");
-        } else if (winCountA > winCountB) {
+        } else if (winStraightA == 3) {
             System.out.println("Aの勝ち");
-        } else {
+        } else if(winStraightB == 3) {
             System.out.println("Bの勝ち");
             }
+        else {
+            System.out.println("無効試合");
+        }
 
-      	 if (winRound > 0) {
-      		 System.out.println("3連勝が" + winRound + "戦目で達成");
-      	   }else {
-      		   System.out.println("3連勝はなかった");
+           if (winRound > 0) {
+               System.out.println("3連勝が" + winRound + "戦目で達成");
+             }else {
+                 System.out.println("3連勝はなかった");
 
-      	   }
+             }
 
        }
 
