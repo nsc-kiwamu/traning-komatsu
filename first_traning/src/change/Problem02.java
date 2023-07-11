@@ -181,7 +181,7 @@ public class Problem02 {
 
             // 処理時間を出力
             System.out.println("処理時間:" + DateUtil.getProcTime(startTime, endTime));
-            System.out.println("------------------------------------------");
+            System.out.println("------------------------------------------"); //修正済み
 
 
 
