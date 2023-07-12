@@ -36,6 +36,7 @@ public class Problem04 {
          *
          */
 
+
     }
 
     /**
@@ -68,35 +69,92 @@ public class Problem04 {
     private static void aggregateNumber(List<Country> countryList) {
         // ※ 判定にif文ではなく、switch文を使用すること
 
+        int usaPopulation = 0;
+        int japanPopulation = 0;
+        int italyPopulation = 0;
+        int indiaPopulation = 0;
+        int ausPopulation = 0;
+        int fraPopulation = 0;
+        int chinaPopulation = 0;
+        int ukPopulation = 0;
+        int korPopulation = 0;
+        int canPopulation = 0;
+        int deuPopulation = 0;
 
-    	int usaPopulation = 0;
-    	int japanPopulation = 0;
-    	int chinaPopulation = 0;
 
+        for (Country country : countryList) {
 
-    	for (Country country : countryList) {
-
-    	switch (country) {
+        switch (country) {
 
             case USA:
-    	    usaPopulation++;
-    	    break;
+            usaPopulation++;
+            break;
+
+            case JPN:
+            japanPopulation++;
+            break;
+
+            case ITR:
+            italyPopulation++;
+            break;
+
+            case IND:
+            indiaPopulation++;
+            break;
+
+            case AUS:
+            ausPopulation++;
+            break;
+
+            case FRA:
+            fraPopulation++;
+            break;
+
+            case CHN:
+            chinaPopulation++;
+            break;
+
+            case GBR:
+            ukPopulation++;
+            break;
+
+            case KOR:
+            korPopulation++;
+            break;
+
+            case CAN:
+            canPopulation++;
+            break;
+
+            case DEU:
+            deuPopulation++;
+            break;
 
 
 
-    	default:
-    		//未定義の国にはなにもしない
-    		break;
-
-    	}
-
-    	System.out.println("usa: " + usaPopulation);
 
 
-    	}
+        default:
+            //未定義の国にはなにもしない
+            break;
+
+        }
+
+        System.out.println("usa: " + usaPopulation);
+        System.out.println("japan: " + japanPopulation);
+        System.out.println("italy:" + italyPopulation);
+        System.out.println("india: " + indiaPopulation);
+        System.out.println("aus: " + ausPopulation);
+        System.out.println("fra: " + fraPopulation);
+        System.out.println("china: " + chinaPopulation);
+        System.out.println("uk: " + ukPopulation);
+        System.out.println("korea" + korPopulation);
+        System.out.println("canada" + canPopulation);
+        System.out.println("germany" + deuPopulation);
 
 
 
 
+        }
     }
 }
