@@ -39,15 +39,15 @@ public class Problem06 {
 
             while (leftPointer <= rightPointer) {
                 // 左から基準値を超える要素を探す。（存在しない場合は基準値自体が対象となる）
-                while (left == 0/*　問題 「left == 0」を削除し、実装せよ*/) {
+                while (array[leftPointer] < pivotData/*　問題 「left == 0」を削除し、実装せよ*/) {
                     leftPointer++;
                 }
                 // 右から基準値未満の要素を探す。（存在しない場合は基準値自体が対象となる）
-                while (left == 0/*　問題 「left == 0」を削除し、実装せよ*/) {
+                while (array[rightPointer] > pivotData/*　問題 「left == 0」を削除し、実装せよ*/) {
                     rightPointer--;
                 }
 
-                if (left == 0/*　問題 「left == 0」を削除し、実装せよ*/) {
+                if (leftPointer <= rightPointer/*　問題 「left == 0」を削除し、実装せよ*/) {
                     int tmp = array[leftPointer];
                     array[leftPointer] = array[rightPointer];
                     array[rightPointer] = tmp;
