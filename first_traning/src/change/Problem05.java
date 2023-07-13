@@ -87,22 +87,25 @@ public class Problem05 {
                 if (l == 15) {
                     return -1;
                 }
-                /*else if (r == 15) {
-                    return 1;
-                }*/
-                else if (r == 7) {
+                else if (r == 15) {
                     return 1;
                 }
-                /*else if (l == 7) {
+                else if (l == 7) {
+                    return 1;
+                }
+                else if (r == 7) {
                     return -1;
-                }*/
+                }
                 else {
                     return l - r;
                 }
-            }
+
+             }
+
+
         }).map(s -> "[" + s + "]").forEach(System.out::print);
         System.out.println("");
     }
 
-    }
+}
 
