@@ -19,6 +19,12 @@ public class Problem07{
         itamae.order("うに");
         itamae.order("大トロ");
         itamae.order("まぐろ");
+        itamae.order("サーモン");
+        itamae.order("サーモン");
+        itamae.order("サーモン");
+        itamae.order("甘エビ");
+
+
 
         System.out.println("注文票-------------");
         itamae.payment();
