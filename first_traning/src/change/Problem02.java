@@ -160,7 +160,7 @@ public class Problem02 {
             for (int j = i + 1; j < testList.size(); j++) {
                 if (testList.get(j) < testList.get(min)) {
                     min = j;
-                    checkSort(testList, i, min);
+                    checkSort(testList, i, j);
                 }
             }
 
