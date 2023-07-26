@@ -1,6 +1,7 @@
 package change;
 
 import hierarchy.life.Earth;
+import hierarchy.life.Human;
 import hierarchy.life.Mouse;
 import hierarchy.life.Tiger;
 
@@ -17,10 +18,12 @@ public class Problem08 {
     public static void main(String[] args) {
         Tiger tiger = new Tiger(15);
         Mouse mouse = new Mouse(2);
+        Human human = new Human(21);
 
         Earth earth = Earth.getInstance();
         earth.birthCreature(tiger);
         earth.birthCreature(mouse);
+        earth.birthCreature(human);
         earth.timeElapsed();
 
         // 10年経過させる
