@@ -5,12 +5,8 @@ package hierarchy.sushi;
  *
  */
 public enum Sushi {
-    TAMAGO(0, "たまご"),
-    MAGURO(1, "まぐろ"),
-    IKURA(2, "いくら"),
-    TYUTORO(3, "中トロ"),
-    UNI(4, "うに"),
-    OOTORO(5, "大トロ");
+    TAMAGO(0, "たまご"), MAGURO(1, "まぐろ"), IKURA(2, "いくら"), TYUTORO(3, "中トロ"), UNI(4, "うに"), OOTORO(5, "大トロ"), SALMON(6,
+            "サーモン"), SHRIMP(7, "甘エビ");
 
     /** 商品番号 */
     private int number = 0;

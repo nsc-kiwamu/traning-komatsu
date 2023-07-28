@@ -25,7 +25,7 @@ public class Itamae {
     /**
      * コンストラクタ
      */
-    public Itamae(){
+    public Itamae() {
         // 注文票を作成する
         makeOrderForm();
     }
@@ -40,6 +40,7 @@ public class Itamae {
         // 皿との紐付を作成する
         makeRelationTraySushi(sushiArray);
         makeRelationSushiCount(sushiArray);
+
     }
 
     /**
@@ -58,6 +59,10 @@ public class Itamae {
                 targetTray = GoldTray.class;
             } else if ("中トロ".equals(sushi.getName())) {
                 targetTray = RedTray.class;
+            } else if ("サーモン".equals(sushi.getName())) {
+                targetTray = YellowTray.class;
+            } else if ("甘エビ".equals(sushi.getName())) {
+                targetTray = GreenTray.class;
             } else {
                 targetTray = BlueTray.class;
             }
@@ -129,6 +134,12 @@ public class Itamae {
                 .collect(Collectors.groupingBy(
                         p -> p.getSushi().getName()));
 
+        //最大の文字数の取得
+        int maxNameLength = orderMap.keySet().stream()
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);
+
         // 清算処理
         for (String key : orderMap.keySet()) {
             price = 0;
@@ -144,8 +155,16 @@ public class Itamae {
                 number += tray.getCount();
             }
 
-            System.out.println(key + "\t" + price + "円\t" + trayCount + "皿\t" + number + "貫");
+            //System.out.println(key + "\t" + "\t" + price + "円\t" + trayCount + "皿\t" + number + "貫");
 
+            //if ("サーモン".equals(key)) {
+                System.out.printf("%-" + (maxNameLength + 1) + "s", key);
+               /* System.out.printf("%7d円", price);
+                System.out.printf("%4d皿", trayCount);
+                System.out.printf("%2d貫%n", number);*/
+           // } else {
+                System.out.println("\t" + "\t" + price + "円\t" + trayCount + "皿\t" + number + "貫");
+           //System.out.println(key + "\t" + "\t" + price + "円\t" + trayCount + "皿\t" + number + "貫"); }
         }
 
         System.out.println("合計金額：" + totalPrice + "円（食べた数：" + eatNum + "貫）");
