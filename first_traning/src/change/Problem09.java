@@ -1,6 +1,8 @@
 package change;
 
 import hierarchy.rides.BulletTrain;
+import hierarchy.rides.SportsCar;
+import hierarchy.rides.StandardCar;
 
 /**
  * インターフェースの問題
@@ -20,6 +22,16 @@ public class Problem09 {
         BulletTrain bulletTrain = new BulletTrain();
         bulletTrain.run("新幹線");
         distance += bulletTrain.trainRun();
+        System.out.println("総走行距離は" + distance + "kmです");
+
+        SportsCar sportsCar = new SportsCar();
+        sportsCar.run("スポーツカー");
+        distance += sportsCar.carRun();
+        System.out.println("総走行距離は" + distance + "kmです");
+
+        StandardCar standardCar = new StandardCar();
+        standardCar.run("普通車");
+        distance += standardCar.carRun();
         System.out.println("総走行距離は" + distance + "kmです");
 
 
