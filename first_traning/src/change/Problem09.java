@@ -30,7 +30,7 @@ public class Problem09 {
         System.out.println("総走行距離は" + distance + "kmです");
 
         StandardCar standardCar = new StandardCar();
-        standardCar.run("スポーツカー");
+        standardCar.run("普通車");
         distance += standardCar.carRun();
         System.out.println("総走行距離は" + distance + "kmです");
 
