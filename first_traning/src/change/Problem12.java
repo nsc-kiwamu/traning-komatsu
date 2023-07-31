@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import race.Driver;
 import race.ExtremeDriver;
 import race.NormalDriver;
+import race.SuperDriver;
 import race.vehicle.Boat;
 import race.vehicle.FastBoat;
 import race.vehicle.NormalBoat;
@@ -20,6 +21,8 @@ import race.vehicle.parts.NormalPropeller;
 import race.vehicle.parts.PowerEngine;
 import race.vehicle.parts.PowerPropeller;
 import race.vehicle.parts.Propeller;
+import race.vehicle.parts.SuperEngine;
+
 
 /**
  * 継承、実装の問題
@@ -60,7 +63,16 @@ public class Problem12 {
         boat03.ride(driver03);
         boat03.setFuel(100);
 
-        List<Vehicle> boatList = Arrays.asList(boat01, boat02, boat03);
+        //4台目のボートを作る
+        Engine engine04 = new SuperEngine();
+        Propeller propeller04 = new NormalPropeller();
+        Boat boat04 = new NormalBoat(engine04, propeller04, "04");
+
+        Driver driver04 = new SuperDriver();
+        boat04.ride(driver04);
+        boat04.setFuel(100);
+
+        List<Vehicle> boatList = Arrays.asList(boat01, boat02, boat03, boat04);
 
         // レースの走行距離
         int mileage = 50;
@@ -138,6 +150,12 @@ public class Problem12 {
                 int curDistance = distanceMap.get(boat.getBoatName());
                 distanceMap.put(boat.getBoatName(), curDistance + addDistance);
             }
+
+            //燃料が0以下でレースを中断する
+            /*if (boat.setFuel <= 0) {
+                isRace = false;
+                System.out.println( + "の燃料が切れたのでレースを中断します");
+            }*/
 
             // 進んだ距離の累計とゴール判定
             for (String key : distanceMap.keySet()) {
