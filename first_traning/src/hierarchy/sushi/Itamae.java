@@ -157,16 +157,18 @@ public class Itamae {
 
             //System.out.println(key + "\t" + "\t" + price + "円\t" + trayCount + "皿\t" + number + "貫");
 
-            //if ("サーモン".equals(key)) {
-                System.out.printf("%-" + (maxNameLength + 1) + "s", key);
-               /* System.out.printf("%7d円", price);
+            if ("サーモン".equals(key)) {
+                System.out.printf("%-" + (maxNameLength) + "s", key);
+                System.out.printf("%7d円", price);
                 System.out.printf("%4d皿", trayCount);
-                System.out.printf("%2d貫%n", number);*/
-           // } else {
-                System.out.println("\t" + "\t" + price + "円\t" + trayCount + "皿\t" + number + "貫");
-           //System.out.println(key + "\t" + "\t" + price + "円\t" + trayCount + "皿\t" + number + "貫"); }
+                System.out.printf("%2d貫%n", number);
+            } else {
+                //System.out.println("\t" + "\t" + price + "円\t" + trayCount + "皿\t" + number + "貫");
+                System.out.println(key + "\t" + "\t" + price + "円\t" + trayCount + "皿\t" + number + "貫");
+            }
         }
 
         System.out.println("合計金額：" + totalPrice + "円（食べた数：" + eatNum + "貫）");
+
     }
 }
