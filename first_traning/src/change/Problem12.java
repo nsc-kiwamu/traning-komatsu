@@ -23,7 +23,6 @@ import race.vehicle.parts.PowerPropeller;
 import race.vehicle.parts.Propeller;
 import race.vehicle.parts.SuperEngine;
 
-
 /**
  * 継承、実装の問題
  *
@@ -149,13 +148,13 @@ public class Problem12 {
                 // 進んだ距離をマップに設定する
                 int curDistance = distanceMap.get(boat.getBoatName());
                 distanceMap.put(boat.getBoatName(), curDistance + addDistance);
-            }
 
-            //燃料が0以下でレースを中断する
-            /*if (boat.setFuel <= 0) {
-                isRace = false;
-                System.out.println( + "の燃料が切れたのでレースを中断します");
-            }*/
+                //燃料が0以下でレースを中断する
+                if (boat.getFuel() <= 0) {
+                    isRace = false;
+                    System.out.println(boat.getBoatName() + "の燃料が切れたのでレースを中断します");
+                }
+            }
 
             // 進んだ距離の累計とゴール判定
             for (String key : distanceMap.keySet()) {
@@ -167,7 +166,7 @@ public class Problem12 {
                     isRace = false;
                 }
             }
-        } while(isRace);
+        } while (isRace);
 
         // 結果を出力
         judge(distanceMap);
@@ -187,7 +186,6 @@ public class Problem12 {
                 .map(s -> s.getKey())
                 .collect(Collectors.toList());
 
-
         int rank = 0;
         int prevDistance = 0;
 
@@ -199,7 +197,7 @@ public class Problem12 {
 
             // 前の走行距離と同じ場合は順位は変えない
             if (curDistance != prevDistance) {
-                rank ++;
+                rank++;
             }
             System.out.println(rank + "位" + rankList.get(i));
 
@@ -214,6 +212,7 @@ public class Problem12 {
      * @param list 出場車リスト
      * @param distance 距離
      */
-    public static void graphicalRace(List<Vehicle> list, int distance) {}
+    public static void graphicalRace(List<Vehicle> list, int distance) {
+    }
 
 }
