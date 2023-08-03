@@ -76,8 +76,8 @@ public class Problem12 {
         // レースの走行距離
         int mileage = 50;
 
-        rase(boatList, mileage);
-        //graphicalRace(boatList, mileage);
+        //rase(boatList, mileage);
+        graphicalRace(boatList, mileage);
 
         /* -- ここから問題 -- */
         /*
@@ -127,7 +127,7 @@ public class Problem12 {
      * @param list 出場車リスト
      * @param distance 距離
      */
-    public static void rase(List<Vehicle> list, int distance) {
+    /*public static void rase(List<Vehicle> list, int distance) {
         // 出場車のリストを表示する
         list.stream().forEach(boat -> boat.outputInfo());
 
@@ -170,7 +170,7 @@ public class Problem12 {
 
         // 結果を出力
         judge(distanceMap);
-    }
+    }*/
 
     /**
      * 走行距離から着順を決める
@@ -208,11 +208,35 @@ public class Problem12 {
     }
 
     /**
-     * レース状況を視覚的に表示しながら実施する。
-     * @param list 出場車リスト
-     * @param distance 距離
-     */
+    * レース状況を視覚的に表示しながら実施し、結果を出力する。
+    * @param list 出場車リスト
+    * @param distance 距離
+    */
     public static void graphicalRace(List<Vehicle> list, int distance) {
+        String separator = " ==================================================|ゴール";
+
+        // それぞれのボートが進んだ距離を保持するマップを作成する
+        Map<String, Integer> distanceMap = list.stream()
+                .collect(Collectors.toMap(
+                        (Vehicle s) -> s.getBoatName(), // キーをボートの番号にする
+                        (Vehicle s) -> 0)); // 値は進んだ距離のため0固定にする
+
+        boolean isRace = true;
+        do {
+            System.out.println(separator);
+
+            for (Vehicle boat : list) {
+                String boatName = boat.getBoatName();
+                StringBuilder boatLine = new StringBuilder();
+                int moveDistance = boat.drive();
+
+
+            }
+
+        } while (isRace);
+
+        // レース結果を出力
+        judge(distanceMap);
     }
 
 }
