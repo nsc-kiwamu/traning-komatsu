@@ -10,10 +10,12 @@ import java.util.stream.Collectors;
 import race.Driver;
 import race.ExtremeDriver;
 import race.NormalDriver;
+import race.SubtleDriver;
 import race.SuperDriver;
 import race.vehicle.Boat;
 import race.vehicle.FastBoat;
 import race.vehicle.NormalBoat;
+import race.vehicle.SubtleBoat;
 import race.vehicle.Vehicle;
 import race.vehicle.parts.Engine;
 import race.vehicle.parts.NormalEngine;
@@ -21,6 +23,8 @@ import race.vehicle.parts.NormalPropeller;
 import race.vehicle.parts.PowerEngine;
 import race.vehicle.parts.PowerPropeller;
 import race.vehicle.parts.Propeller;
+import race.vehicle.parts.SubtleEngine;
+import race.vehicle.parts.SubtlePropeller;
 import race.vehicle.parts.SuperEngine;
 
 /**
@@ -71,7 +75,16 @@ public class Problem12 {
         boat04.ride(driver04);
         boat04.setFuel(100);
 
-        List<Vehicle> boatList = Arrays.asList(boat01, boat02, boat03, boat04);
+        //5台目のボートを作る
+        Engine engine05 = new SubtleEngine();
+        Propeller propeller05 = new SubtlePropeller();
+        Boat boat05 = new SubtleBoat(engine05, propeller05, "05");
+
+        Driver driver05 = new SubtleDriver();
+        boat05.ride(driver05);
+        boat05.setFuel(100);
+
+        List<Vehicle> boatList = Arrays.asList(boat01, boat02, boat03, boat04, boat05);
 
         // レースの走行距離
         int mileage = 50;
@@ -141,6 +154,8 @@ public class Problem12 {
 
         // どれかがゴールするまで続ける
         do {
+            int boatsOutOfFuel = 0;
+
             for (Vehicle boat : list) {
                 int addDistance = boat.drive();
                 System.out.println(boat.getBoatName() + "が" + addDistance + "進みました");
@@ -151,8 +166,12 @@ public class Problem12 {
 
                 //燃料が0以下でレースを中断する
                 if (boat.getFuel() <= 0) {
+                    boatsOutOfFuel++;
+                }
+
+                if (list.size() == boatsOutOfFuel) {
                     isRace = false;
-                    System.out.println(boat.getBoatName() + "の燃料が切れたのでレースを中断します");
+                    System.out.println("全てのボートの燃料が切れたのでレースを中断します");
                 }
             }
 
@@ -228,9 +247,22 @@ public class Problem12 {
             for (Vehicle boat : list) {
                 String boatName = boat.getBoatName();
                 StringBuilder boatLine = new StringBuilder();
-                int moveDistance = boat.drive();
+                int addDistance = boat.drive();
 
+                int position = distanceMap.get(boatName);
+                distanceMap.put(boatName, position + addDistance);
 
+                for (int i = 0; i < position; i++) {
+                    boatLine.append(">");
+                }
+
+                boatLine.append(boatName);
+
+                System.out.println(boatLine.toString());
+
+                if (position >= distance) {
+                    isRace = false;
+                }
             }
 
         } while (isRace);
