@@ -87,7 +87,8 @@ public class Problem12 {
         List<Vehicle> boatList = Arrays.asList(boat01, boat02, boat03, boat04, boat05);
 
         // レースの走行距離
-        int mileage = 50;
+        int mileage = 500;
+        //500でも正常に動くことを確認しました。
 
         //rase(boatList, mileage);
         graphicalRace(boatList, mileage);
@@ -232,7 +233,7 @@ public class Problem12 {
     * @param distance 距離
     */
     public static void graphicalRace(List<Vehicle> list, int distance) {
-        String separator = " ==================================================|ゴール";
+        String separator = new String(new char[distance]).replace('\0', '=') + "|ゴール";
 
         // それぞれのボートが進んだ距離を保持するマップを作成する
         Map<String, Integer> distanceMap = list.stream()
@@ -241,7 +242,10 @@ public class Problem12 {
                         (Vehicle s) -> 0)); // 値は進んだ距離のため0固定にする
 
         boolean isRace = true;
+
+
         do {
+            int boatsOutOfFuel = 0;
             System.out.println(separator);
 
             for (Vehicle boat : list) {
@@ -252,7 +256,17 @@ public class Problem12 {
                 int position = distanceMap.get(boatName);
                 distanceMap.put(boatName, position + addDistance);
 
-                for (int i = 0; i < position; i++) {
+              //燃料が0以下でレースを中断する
+                if (boat.getFuel() <= 0) {
+                    boatsOutOfFuel++;
+                }
+
+                if (list.size() == boatsOutOfFuel) {
+                    isRace = false;
+                    System.out.println("全てのボートの燃料が切れたのでレースを中断します");
+                }
+
+                for (int i = 0; i < distanceMap.get(boatName); i++) {
                     boatLine.append(">");
                 }
 
@@ -260,7 +274,14 @@ public class Problem12 {
 
                 System.out.println(boatLine.toString());
 
-                if (position >= distance) {
+            }
+
+            // 進んだ距離の累計とゴール判定
+            for (String key : distanceMap.keySet()) {
+                // 進んだ距離の累計を取得
+                int position = distanceMap.get(key);
+
+                if (position > distance) {
                     isRace = false;
                 }
             }
