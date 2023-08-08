@@ -13,19 +13,23 @@ import race.NormalDriver;
 import race.SubtleDriver;
 import race.SuperDriver;
 import race.vehicle.Boat;
+import race.vehicle.Car;
 import race.vehicle.FastBoat;
 import race.vehicle.NormalBoat;
+import race.vehicle.NormalCar;
 import race.vehicle.SubtleBoat;
 import race.vehicle.Vehicle;
 import race.vehicle.parts.Engine;
 import race.vehicle.parts.NormalEngine;
 import race.vehicle.parts.NormalPropeller;
+import race.vehicle.parts.NormalTire;
 import race.vehicle.parts.PowerEngine;
 import race.vehicle.parts.PowerPropeller;
 import race.vehicle.parts.Propeller;
 import race.vehicle.parts.SubtleEngine;
 import race.vehicle.parts.SubtlePropeller;
 import race.vehicle.parts.SuperEngine;
+import race.vehicle.parts.Tire;
 
 /**
  * 継承、実装の問題
@@ -84,10 +88,19 @@ public class Problem12 {
         boat05.ride(driver05);
         boat05.setFuel(100);
 
-        List<Vehicle> boatList = Arrays.asList(boat01, boat02, boat03, boat04, boat05);
+        //車で6人目をレースに参加させる
+        Engine engine06 = new NormalEngine();
+        Tire tire01 = new NormalTire();
+        Car car01 = new NormalCar(engine06, tire01, "06");
+
+        Driver driver06 = new NormalDriver();
+        car01.ride(driver06);
+        car01.setFuel(100);
+
+        List<Vehicle> boatList = Arrays.asList(boat01, boat02, boat03, boat04, boat05, car01);
 
         // レースの走行距離
-        int mileage = 500;
+        int mileage = 50;
         //500でも正常に動くことを確認しました。
 
         //rase(boatList, mileage);
@@ -170,10 +183,12 @@ public class Problem12 {
                     boatsOutOfFuel++;
                 }
 
-                if (list.size() == boatsOutOfFuel) {
-                    isRace = false;
-                    System.out.println("全てのボートの燃料が切れたのでレースを中断します");
-                }
+            }
+
+            if (list.size() == boatsOutOfFuel) {
+                isRace = false;
+                System.out.println("全てのボートの燃料が切れたのでレースを中断します");
+                return;
             }
 
             // 進んだ距離の累計とゴール判定
@@ -243,7 +258,6 @@ public class Problem12 {
 
         boolean isRace = true;
 
-
         do {
             int boatsOutOfFuel = 0;
             System.out.println(separator);
@@ -256,14 +270,9 @@ public class Problem12 {
                 int position = distanceMap.get(boatName);
                 distanceMap.put(boatName, position + addDistance);
 
-              //燃料が0以下でレースを中断する
+                //燃料が0以下でレースを中断する
                 if (boat.getFuel() <= 0) {
                     boatsOutOfFuel++;
-                }
-
-                if (list.size() == boatsOutOfFuel) {
-                    isRace = false;
-                    System.out.println("全てのボートの燃料が切れたのでレースを中断します");
                 }
 
                 for (int i = 0; i < distanceMap.get(boatName); i++) {
@@ -274,6 +283,12 @@ public class Problem12 {
 
                 System.out.println(boatLine.toString());
 
+            }
+
+            if (list.size() == boatsOutOfFuel) {
+                isRace = false;
+                System.out.println("全てのボートの燃料が切れたのでレースを中断します");
+                return;
             }
 
             // 進んだ距離の累計とゴール判定
