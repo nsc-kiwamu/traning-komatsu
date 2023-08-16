@@ -100,7 +100,7 @@ public class Problem12 {
         List<Vehicle> boatList = Arrays.asList(boat01, boat02, boat03, boat04, boat05, car01);
 
         // レースの走行距離
-        int mileage = 50;
+        int mileage = 100;
         //500でも正常に動くことを確認しました。
 
         //rase(boatList, mileage);
