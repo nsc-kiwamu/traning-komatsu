@@ -9,6 +9,7 @@ import java.util.List;
 import race.wrap.BottomWrapper;
 import race.wrap.SideWrapper;
 import race.wrap.StringWrapper;
+import race.wrap.TopWrapper;
 
 /**
  * 入出力の問題
@@ -59,7 +60,6 @@ public class Problem13 {
          * に組み込んで動かす
          */
 
-
     }
 
     /**
@@ -81,10 +81,16 @@ public class Problem13 {
             e.printStackTrace();
         }
 
-        // 横と下をラップする
+        // 横と下をラップする。上も追加
         StringWrapper side = new SideWrapper();
         StringWrapper bottom = new BottomWrapper();
-        System.out.println(bottom.wrap(side.wrap(inputStr, '*'), '*'));
+        StringWrapper top = new TopWrapper();
+
+        String wrapperSide = side.wrap(inputStr, '*');
+        String wrapperBottomAndSide = bottom.wrap(wrapperSide, '*');
+        String wrapperFinal = top.wrap(wrapperBottomAndSide, '*');
+
+        System.out.println(wrapperFinal);
 
     }
 
@@ -123,16 +129,23 @@ public class Problem13 {
             build.append(inputLine.get(i));
 
             // 改行コードで分割して要素数が2つ以上の時で最後の要素以外の時に改行を戻し入れる
-            if (2 <= inputLine.size() && i < inputLine.size() -1) {
+            if (2 <= inputLine.size() && i < inputLine.size() - 1) {
                 build.append(System.lineSeparator());
             }
         }
 
-
-        // 横と下をラップする
+        // 横と下をラップする。上も追加
         StringWrapper side = new SideWrapper();
         StringWrapper bottom = new BottomWrapper();
-        System.out.println(bottom.wrap(side.wrap(build.toString(), '|'), '-'));
+        StringWrapper top = new TopWrapper();
+
+        String wrapperSide = side.wrap(build.toString(), '*');
+        String wrapperBottomAndSide = bottom.wrap(wrapperSide, '*');
+        String wrapperFinal = top.wrap(wrapperBottomAndSide, '*');
+
+        System.out.println(wrapperFinal);
+
+        //System.out.println(bottom.wrap(side.wrap(build.toString(), '|'), '-'));
 
     }
 
