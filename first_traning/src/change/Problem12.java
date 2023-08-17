@@ -10,16 +10,26 @@ import java.util.stream.Collectors;
 import race.Driver;
 import race.ExtremeDriver;
 import race.NormalDriver;
+import race.SubtleDriver;
+import race.SuperDriver;
 import race.vehicle.Boat;
+import race.vehicle.Car;
 import race.vehicle.FastBoat;
 import race.vehicle.NormalBoat;
+import race.vehicle.NormalCar;
+import race.vehicle.SubtleBoat;
 import race.vehicle.Vehicle;
 import race.vehicle.parts.Engine;
 import race.vehicle.parts.NormalEngine;
 import race.vehicle.parts.NormalPropeller;
+import race.vehicle.parts.NormalTire;
 import race.vehicle.parts.PowerEngine;
 import race.vehicle.parts.PowerPropeller;
 import race.vehicle.parts.Propeller;
+import race.vehicle.parts.SubtleEngine;
+import race.vehicle.parts.SubtlePropeller;
+import race.vehicle.parts.SuperEngine;
+import race.vehicle.parts.Tire;
 
 /**
  * 継承、実装の問題
@@ -60,13 +70,41 @@ public class Problem12 {
         boat03.ride(driver03);
         boat03.setFuel(100);
 
-        List<Vehicle> boatList = Arrays.asList(boat01, boat02, boat03);
+        //4台目のボートを作る
+        Engine engine04 = new SuperEngine();
+        Propeller propeller04 = new NormalPropeller();
+        Boat boat04 = new NormalBoat(engine04, propeller04, "04");
+
+        Driver driver04 = new SuperDriver();
+        boat04.ride(driver04);
+        boat04.setFuel(100);
+
+        //5台目のボートを作る
+        Engine engine05 = new SubtleEngine();
+        Propeller propeller05 = new SubtlePropeller();
+        Boat boat05 = new SubtleBoat(engine05, propeller05, "05");
+
+        Driver driver05 = new SubtleDriver();
+        boat05.ride(driver05);
+        boat05.setFuel(100);
+
+        //車で6人目をレースに参加させる
+        Engine engine06 = new NormalEngine();
+        Tire tire01 = new NormalTire();
+        Car car01 = new NormalCar(engine06, tire01, "06");
+
+        Driver driver06 = new NormalDriver();
+        car01.ride(driver06);
+        car01.setFuel(100);
+
+        List<Vehicle> boatList = Arrays.asList(boat01, boat02, boat03, boat04, boat05, car01);
 
         // レースの走行距離
-        int mileage = 50;
+        int mileage = 100;
+        //500でも正常に動くことを確認しました。
 
-        rase(boatList, mileage);
-        //graphicalRace(boatList, mileage);
+        //rase(boatList, mileage);
+        graphicalRace(boatList, mileage);
 
         /* -- ここから問題 -- */
         /*
@@ -116,7 +154,7 @@ public class Problem12 {
      * @param list 出場車リスト
      * @param distance 距離
      */
-    public static void rase(List<Vehicle> list, int distance) {
+    /*public static void rase(List<Vehicle> list, int distance) {
         // 出場車のリストを表示する
         list.stream().forEach(boat -> boat.outputInfo());
 
@@ -130,6 +168,8 @@ public class Problem12 {
 
         // どれかがゴールするまで続ける
         do {
+            int boatsOutOfFuel = 0;
+
             for (Vehicle boat : list) {
                 int addDistance = boat.drive();
                 System.out.println(boat.getBoatName() + "が" + addDistance + "進みました");
@@ -137,6 +177,18 @@ public class Problem12 {
                 // 進んだ距離をマップに設定する
                 int curDistance = distanceMap.get(boat.getBoatName());
                 distanceMap.put(boat.getBoatName(), curDistance + addDistance);
+
+                //燃料が0以下でレースを中断する
+                if (boat.getFuel() <= 0) {
+                    boatsOutOfFuel++;
+                }
+
+            }
+
+            if (list.size() == boatsOutOfFuel) {
+                isRace = false;
+                System.out.println("全てのボートの燃料が切れたのでレースを中断します");
+                return;
             }
 
             // 進んだ距離の累計とゴール判定
@@ -149,11 +201,11 @@ public class Problem12 {
                     isRace = false;
                 }
             }
-        } while(isRace);
+        } while (isRace);
 
         // 結果を出力
         judge(distanceMap);
-    }
+    }*/
 
     /**
      * 走行距離から着順を決める
@@ -169,7 +221,6 @@ public class Problem12 {
                 .map(s -> s.getKey())
                 .collect(Collectors.toList());
 
-
         int rank = 0;
         int prevDistance = 0;
 
@@ -181,7 +232,7 @@ public class Problem12 {
 
             // 前の走行距離と同じ場合は順位は変えない
             if (curDistance != prevDistance) {
-                rank ++;
+                rank++;
             }
             System.out.println(rank + "位" + rankList.get(i));
 
@@ -192,10 +243,68 @@ public class Problem12 {
     }
 
     /**
-     * レース状況を視覚的に表示しながら実施する。
-     * @param list 出場車リスト
-     * @param distance 距離
-     */
-    public static void graphicalRace(List<Vehicle> list, int distance) {}
+    * レース状況を視覚的に表示しながら実施し、結果を出力する。
+    * @param list 出場車リスト
+    * @param distance 距離
+    */
+    public static void graphicalRace(List<Vehicle> list, int distance) {
+        String separator = new String(new char[distance]).replace('\0', '=') + "|ゴール";
+
+        // それぞれのボートが進んだ距離を保持するマップを作成する
+        Map<String, Integer> distanceMap = list.stream()
+                .collect(Collectors.toMap(
+                        (Vehicle s) -> s.getBoatName(), // キーをボートの番号にする
+                        (Vehicle s) -> 0)); // 値は進んだ距離のため0固定にする
+
+        boolean isRace = true;
+
+        do {
+            int boatsOutOfFuel = 0;
+            System.out.println(separator);
+
+            for (Vehicle boat : list) {
+                String boatName = boat.getBoatName();
+                StringBuilder boatLine = new StringBuilder();
+                int addDistance = boat.drive();
+
+                int position = distanceMap.get(boatName);
+                distanceMap.put(boatName, position + addDistance);
+
+                //燃料が0以下でレースを中断する
+                if (boat.getFuel() <= 0) {
+                    boatsOutOfFuel++;
+                }
+
+                for (int i = 0; i < distanceMap.get(boatName); i++) {
+                    boatLine.append(">");
+                }
+
+                boatLine.append(boatName);
+
+                System.out.println(boatLine.toString());
+
+            }
+
+            if (list.size() == boatsOutOfFuel) {
+                isRace = false;
+                System.out.println("全てのボートの燃料が切れたのでレースを中断します");
+                return;
+            }
+
+            // 進んだ距離の累計とゴール判定
+            for (String key : distanceMap.keySet()) {
+                // 進んだ距離の累計を取得
+                int position = distanceMap.get(key);
+
+                if (position > distance) {
+                    isRace = false;
+                }
+            }
+
+        } while (isRace);
+
+        // レース結果を出力
+        judge(distanceMap);
+    }
 
 }
