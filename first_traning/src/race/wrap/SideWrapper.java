@@ -14,10 +14,23 @@ public class SideWrapper implements StringWrapper {
 
         StringBuilder retBuilder = new StringBuilder();
 
+        int maxSize = 0;
+
         // 各行にラッピング文字を設定
         for (int i = 0; i < targetLine.length; i++) {
             retBuilder.append(wrapper);
             retBuilder.append(targetLine[i]);
+
+            int curSize = getWrappingCount(targetLine[i]);
+            if (maxSize < curSize) {
+                maxSize = curSize;
+            }
+
+            int blank = maxSize - targetLine[i].length();
+            for (int j = 0; j < blank; j++) {
+                retBuilder.append(" ");
+            }
+
             retBuilder.append(wrapper);
 
             // 改行コードで分割して要素数が2つ以上の時で最後の要素以外の時に改行を戻し入れる
