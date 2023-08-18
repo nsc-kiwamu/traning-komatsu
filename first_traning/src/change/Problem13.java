@@ -6,10 +6,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import race.wrap.BottomWrapper;
-import race.wrap.SideWrapper;
+import race.wrap.AllWrapper;
 import race.wrap.StringWrapper;
-import race.wrap.TopWrapper;
 
 /**
  * 入出力の問題
@@ -82,15 +80,18 @@ public class Problem13 {
         }
 
         // 横と下をラップする。上も追加
-        StringWrapper side = new SideWrapper();
+        /*StringWrapper side = new SideWrapper();
         StringWrapper bottom = new BottomWrapper();
-        StringWrapper top = new TopWrapper();
+        StringWrapper top = new TopWrapper();*/
+        StringWrapper all = new AllWrapper();
 
-        String wrapperSide = side.wrap(inputStr, '*');
+        /*String wrapperSide = side.wrap(inputStr, '*');
         String wrapperBottomAndSide = bottom.wrap(wrapperSide, '*');
-        String wrapperFinal = top.wrap(wrapperBottomAndSide, '*');
+        String wrapperFinal = top.wrap(wrapperBottomAndSide, '*');*/
+        String wrapperAll = all.wrap(inputStr, '*');
 
-        System.out.println(wrapperFinal);
+        //System.out.println(wrapperFinal);
+        System.out.println(wrapperAll);
 
     }
 
@@ -135,15 +136,18 @@ public class Problem13 {
         }
 
         // 横と下をラップする。上も追加
-        StringWrapper side = new SideWrapper();
+        /*StringWrapper side = new SideWrapper();
         StringWrapper bottom = new BottomWrapper();
-        StringWrapper top = new TopWrapper();
+        StringWrapper top = new TopWrapper();*/
+        StringWrapper all = new AllWrapper();
 
-        String wrapperSide = side.wrap(build.toString(), '*');
+        /*String wrapperSide = side.wrap(build.toString(), '*');
         String wrapperBottomAndSide = bottom.wrap(wrapperSide, '*');
-        String wrapperFinal = top.wrap(wrapperBottomAndSide, '*');
+        String wrapperFinal = top.wrap(wrapperBottomAndSide, '*');*/
+        String wrapperAll = all.wrap(build.toString(), '*');
 
-        System.out.println(wrapperFinal);
+        //System.out.println(wrapperFinal);
+        System.out.println(wrapperAll);
 
         //System.out.println(bottom.wrap(side.wrap(build.toString(), '|'), '-'));
 
