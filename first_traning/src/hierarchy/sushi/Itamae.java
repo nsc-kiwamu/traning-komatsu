@@ -146,6 +146,11 @@ public class Itamae {
             int trayCount = 0;
             int number = 0;
 
+            /*int maxNameLength = orderMap.keySet().stream()
+                    .mapToInt(String::length)
+                    .max()
+                    .orElse(0);*/
+
             for (Tray tray : orderMap.get(key)) {
                 price += tray.getPrice();
                 totalPrice += tray.getPrice();
@@ -166,6 +171,9 @@ public class Itamae {
                 //System.out.println("\t" + "\t" + price + "円\t" + trayCount + "皿\t" + number + "貫");
                 System.out.println(key + "\t" + "\t" + price + "円\t" + trayCount + "皿\t" + number + "貫");
             }
+
+            /*System.out.printf("%-" + (maxNameLength) + "s", key);
+            System.out.println(price + "円\t" + trayCount + "皿\t" + number + "貫");*/
         }
 
         System.out.println("合計金額：" + totalPrice + "円（食べた数：" + eatNum + "貫）");
