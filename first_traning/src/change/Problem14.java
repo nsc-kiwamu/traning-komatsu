@@ -1,6 +1,7 @@
 package change;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
@@ -13,7 +14,6 @@ import java.util.stream.Stream;
  *
  */
 public class Problem14 {
-
 
     /**
      * csvファイルを読み込み、加算結果を出力する
@@ -80,11 +80,15 @@ public class Problem14 {
      */
     protected static void execBufferedReader() {
         // 好きな方を使って下さい
-//      try (BufferedReader reader = new BufferedReader(new FileReader("./data/in/Problem14_01.csv"))) {
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("./data/in/Problem14_01.csv"))) {
+        //      try (BufferedReader reader = new BufferedReader(new FileReader("./data/in/Problem14_01.csv"))) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get("./data/in/Problem14_01.csv"));
+                BufferedWriter writer = Files.newBufferedWriter(Paths.get("./data/in/Problem14_FileOutput"))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(sum(line));
+                //System.out.println(sum(line));
+                int result = sum(line);
+                writer.write(Integer.toString(result));
+                writer.newLine();
             }
         } catch (IOException e) {
             throw new UncheckedIOException(e);
