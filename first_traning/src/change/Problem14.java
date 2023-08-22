@@ -82,16 +82,47 @@ public class Problem14 {
         // 好きな方を使って下さい
         //      try (BufferedReader reader = new BufferedReader(new FileReader("./data/in/Problem14_01.csv"))) {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get("./data/in/Problem14_01.csv"));
-                BufferedWriter writer = Files.newBufferedWriter(Paths.get("./data/in/Problem14_FileOutput"))) {
+                BufferedWriter writer = Files.newBufferedWriter(Paths.get("./data/out/Problem14_FileOutput.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 //System.out.println(sum(line));
-                int result = sum(line);
+                int result = calculation(line);
                 writer.write(Integer.toString(result));
                 writer.newLine();
             }
         } catch (IOException e) {
             throw new UncheckedIOException(e);
+        }
+    }
+
+    protected static int calculation(String line) {
+
+        String[] comma = line.split(",");
+        int a = Integer.parseInt(comma[0]);
+        int b = Integer.parseInt(comma[1]);
+        String operator = comma[2];
+
+        switch (operator) {
+
+        case "+":
+            return a + b;
+
+        case "-":
+            return a - b;
+
+        case "*":
+            return a * b;
+
+        case "/":
+            if (b != 0) {
+                return a / b;
+            } else {
+                throw new ArithmeticException("Division by 0");
+            }
+
+        default:
+            throw new IllegalArgumentException("Invaild operator:" + operator);
+
         }
     }
 
@@ -103,7 +134,7 @@ public class Problem14 {
     protected static void execStream() {
         try (Stream<String> stream = Files.lines(Paths.get("./data/in/Problem14_01.csv"))) {
             stream.forEach(line -> {
-                System.out.println(sum(line));
+                System.out.println(calculation(line));
             });
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -123,7 +154,7 @@ public class Problem14 {
             throw new UncheckedIOException(e);
         }
         for (String line : lines) {
-            System.out.println(sum(line));
+            System.out.println(calculation(line));
         }
     }
 
