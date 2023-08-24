@@ -1,11 +1,16 @@
 package change;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import io.rebuilding.NestSearch;
 import io.rebuilding.RebuildFileManager;
 import io.rebuilding.SampleManager;
 import io.rebuilding.SimpleRule;
-import io.rebuilding.SingleSearch;
 
 /**
  * 入出力の問題
@@ -20,8 +25,10 @@ public class Problem15 {
      */
     public static void main(String[] args) {
         // ファイルの再編成を実施する。
-        RebuildFileManager manager = new SampleManager(new SingleSearch(), new SimpleRule("Problem15"));
+        RebuildFileManager manager = new SampleManager(new NestSearch(), new SimpleRule("Problem15"));
         manager.rebuild(Paths.get("./data/in"));
+
+
 
         /*
          * ここから問題
@@ -50,5 +57,17 @@ public class Problem15 {
          */
 
     }
+
+    public static void newLine() {
+
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get("./data/in/Problem15_utf8.txt"));
+                BufferedWriter writer = Files.newBufferedWriter(Paths.get("./data/out/Problem15_utf8.txt"))) {
+
+        }
+        catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
 
 }
