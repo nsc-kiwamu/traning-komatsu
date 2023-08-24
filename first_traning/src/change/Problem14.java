@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  */
 public class Problem14 {
 
-    private static  int previousResult = 0;
+    private static int previousResult = 0;
 
     /**
      * csvファイルを読み込み、加算結果を出力する
@@ -82,6 +82,8 @@ public class Problem14 {
      */
     protected static void execBufferedReader() {
 
+        previousResult = 0;
+
         // 好きな方を使って下さい
         //      try (BufferedReader reader = new BufferedReader(new FileReader("./data/in/Problem14_01.csv"))) {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get("./data/in/Problem14_01.csv"));
@@ -92,7 +94,7 @@ public class Problem14 {
                 int result = calculation(line);
                 writer.write("行の計算結果：" + result);
                 writer.newLine();
-                writer.write("加算したもの：" + (result +  previousResult));
+                writer.write("加算したもの：" + (result + previousResult));
                 writer.newLine();
                 previousResult = result;
             }
@@ -138,11 +140,14 @@ public class Problem14 {
      *
      */
     protected static void execStream() {
+
+        previousResult = 0;
+
         try (Stream<String> stream = Files.lines(Paths.get("./data/in/Problem14_01.csv"))) {
             stream.forEach(line -> {
                 int result = calculation(line);
                 System.out.println("行の計算結果：" + result);
-                System.out.println("加算したもの：" + (result +  previousResult));
+                System.out.println("加算したもの：" + (result + previousResult));
                 previousResult = result;
             });
         } catch (IOException e) {
@@ -156,6 +161,9 @@ public class Problem14 {
      *
      */
     protected static void execList() {
+
+        previousResult = 0;
+
         List<String> lines;
         try {
             lines = Files.readAllLines(Paths.get("./data/in/Problem14_01.csv"));
@@ -165,7 +173,7 @@ public class Problem14 {
         for (String line : lines) {
             int result = calculation(line);
             System.out.println("行の計算結果：" + result);
-            System.out.println("加算したもの：" + (result +  previousResult));
+            System.out.println("加算したもの：" + (result + previousResult));
             previousResult = result;
         }
     }
