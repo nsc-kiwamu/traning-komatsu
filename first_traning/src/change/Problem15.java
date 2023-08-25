@@ -63,10 +63,23 @@ public class Problem15 {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get("./data/in/Problem15_utf8.txt"));
                 BufferedWriter writer = Files.newBufferedWriter(Paths.get("./data/out/Problem15_utf8.txt"))) {
 
+            String line;
+            while ((line = reader.readLine()) != null) {
+
+                line = insertNewLine(line);
+                writer.write(line);
+                writer.newLine();
+            }
+
         }
         catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    public static String insertNewLine(String line) {
+
+        return line.replaceAll("。", "。\n");
     }
 
 
