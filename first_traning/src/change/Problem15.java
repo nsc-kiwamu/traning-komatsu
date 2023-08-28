@@ -28,6 +28,8 @@ public class Problem15 {
         RebuildFileManager manager = new SampleManager(new NestSearch(), new SimpleRule("Problem15"));
         manager.rebuild(Paths.get("./data/in"));
 
+        newLine();
+
 
 
         /*
@@ -42,7 +44,7 @@ public class Problem15 {
          * 問題②
          * 各種ファイルの内容を変更せず、ファイルの構成のみを編成しているが
          * ファイルに以下の変更をし、ファイルを編成せよ。
-         * ・ファイル内の文章について、「。」の後は改行して出力する
+         * ・ファイル内の文章について、「。」の後は改行して出力する完了その２
          */
 
         /*
