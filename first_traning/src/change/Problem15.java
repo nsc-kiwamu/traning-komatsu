@@ -28,6 +28,8 @@ public class Problem15 {
         RebuildFileManager manager = new SampleManager(new NestSearch(), new SimpleRule("Problem15"));
         manager.rebuild(Paths.get("./data/in"));
 
+        newLine();
+
 
 
         /*
