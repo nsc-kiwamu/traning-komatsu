@@ -7,9 +7,9 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import io.rebuilding.BinaryFileManager;
 import io.rebuilding.NestSearch;
 import io.rebuilding.RebuildFileManager;
-import io.rebuilding.SampleManager;
 import io.rebuilding.SimpleRule;
 
 /**
@@ -18,19 +18,19 @@ import io.rebuilding.SimpleRule;
  */
 public class Problem15 {
 
-
     /**
      * 引数で受け取ったファイルを再編成し、別の場所に出力する
      * @param args
      */
     public static void main(String[] args) {
         // ファイルの再編成を実施する。
-        RebuildFileManager manager = new SampleManager(new NestSearch(), new SimpleRule("Problem15"));
+        //        RebuildFileManager manager = new SampleManager(new NestSearch(), new SimpleRule("Problem15"));
+        //        manager.rebuild(Paths.get("./data/in"));
+
+        RebuildFileManager manager = new BinaryFileManager(new NestSearch(), new SimpleRule("Problem15"));
         manager.rebuild(Paths.get("./data/in"));
 
-        newLine();
-
-
+        //newLine();
 
         /*
          * ここから問題
@@ -73,8 +73,7 @@ public class Problem15 {
                 writer.newLine();
             }
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
     }
@@ -83,6 +82,5 @@ public class Problem15 {
 
         return line.replaceAll("。", "。\n");
     }
-
 
 }
