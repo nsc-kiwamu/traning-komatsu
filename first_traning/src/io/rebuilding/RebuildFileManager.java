@@ -1,16 +1,17 @@
 package io.rebuilding;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
 
 /**
  * ファイルを再編成するための抽象クラス
@@ -45,8 +46,7 @@ public abstract class RebuildFileManager {
         List<Path> getPathList = search.search(path);
 
         // パス一覧より対象のリストを取得する
-        List<Path> targetPathList =
-                getPathList.stream()
+        List<Path> targetPathList = getPathList.stream()
                 .filter(p -> rule.isTarget(p)) // 編成対象のもののみを抽出
                 .collect(Collectors.toList()); // リストにして返却
 
@@ -121,24 +121,44 @@ public abstract class RebuildFileManager {
                 Charset charset = judgeCharset(srcPath);
 
                 // ファイルの読み込み
-                try {
-                    List<String> readFiles = Files.readAllLines(srcPath, charset);
+                //                try {
+                //                    List<String> readFiles = Files.readAllLines(srcPath, charset);
+                //
+                //                    // 書き込み先が存在する場合
+                //                    if (Files.exists(destPath)) {
+                //                        Files.write(destPath, readFiles, charset, StandardOpenOption.APPEND);
+                //                    } else {
+                //                        // ファイルが存在しない場合
+                //                        Files.write(destPath, readFiles, charset, StandardOpenOption.CREATE);
+                //                    }
+                //
+                //                } catch (IOException e) {
+                //                    e.printStackTrace();
+                //                }
 
-                    // 書き込み先が存在する場合
-                    if (Files.exists(destPath)) {
-                        Files.write(destPath, readFiles, charset, StandardOpenOption.APPEND);
-                    } else {
-                        // ファイルが存在しない場合
-                        Files.write(destPath, readFiles, charset, StandardOpenOption.CREATE);
+                try (BufferedReader reader = Files.newBufferedReader(srcPath, charset);
+                        BufferedWriter writer = Files.newBufferedWriter(destPath, charset)) {
+
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+
+                        line = insertNewLine(line);
+                        writer.write(line);
+                        writer.newLine();
                     }
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    throw new UncheckedIOException(e);
                 }
 
             }
 
         }
+    }
+
+    public static String insertNewLine(String line) {
+
+        return line.replaceAll("。", "。\n");
     }
 
 }
