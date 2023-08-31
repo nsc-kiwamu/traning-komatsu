@@ -27,7 +27,7 @@ public class BinaryFileManager extends RebuildFileManager {
         return p -> {
             String path = p.toString();
             // javaの表記上のエスケープと正規表現のエスケープのため「\」は倍必要
-            String replacePath = path.replaceFirst("first_traning_15_16\\\\data\\\\in", "first_traning_15_16\\\\data\\\\out");
+            String replacePath = path.replaceFirst("data\\\\in", "data\\\\out");
             return Paths.get(replacePath);
         };
     }
